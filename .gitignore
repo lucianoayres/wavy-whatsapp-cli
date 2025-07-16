@@ -1,0 +1,52 @@
+# Go specific
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+*.prof
+*.o
+*.a
+/vendor/
+/go.work
+/go.work.sum
+
+# WhatsApp-specific
+client.db
+client.db-journal
+whatsapp_qr_code.png
+whatsapp-setup
+whatsapp-send
+whatsapp-check
+
+# Binary output directories
+/bin/
+/dist/
+/build/
+
+# IDE specific files
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+.env
+
+# Debug files
+debug
+__debug_bin
+*.log
+
+# OS specific
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Project specific binaries that should be built locally
+/whatsapp-* 
