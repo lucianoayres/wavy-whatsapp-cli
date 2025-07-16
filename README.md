@@ -1,50 +1,84 @@
-# WhatsApp CLI Sender
+# WhatsApp CLI Tools
 
-A simple command-line tool for sending WhatsApp messages using the [whatsmeow](https://github.com/tulir/whatsmeow) library.
+A set of command-line tools for WhatsApp messaging using the [whatsmeow](https://github.com/tulir/whatsmeow) library.
+
+## Features
+
+- Set up a WhatsApp session with QR code authentication
+- Send messages to WhatsApp contacts via command-line
+- Check if phone numbers are registered on WhatsApp
+
+## Project Structure
+
+```
+whatsmeow-go/
+├── cmd/
+│   ├── check/     # WhatsApp number verification tool
+│   ├── send/      # Message sending tool
+│   └── setup/     # Authentication setup tool
+├── build.sh       # Build script for all tools
+├── .gitignore     # Git ignore file
+├── go.mod         # Go module file
+├── go.sum         # Go module checksum
+└── README.md      # This file
+```
 
 ## Setup
 
-1. Install dependencies:
+1. **Build the tools**:
 
    ```bash
-   go get go.mau.fi/whatsmeow
-   go get github.com/mattn/go-sqlite3
-   ```
+   # Using the build script
+   ./build.sh
 
-2. Build the tools:
-
-   ```bash
+   # Or build manually
    go build -o whatsapp-setup ./cmd/setup
    go build -o whatsapp-send ./cmd/send
+   go build -o whatsapp-check ./cmd/check
    ```
 
-3. Run the setup to authenticate:
+2. **Run the setup to authenticate**:
 
    ```bash
    ./whatsapp-setup
    ```
 
-   This will generate a QR code that you need to scan with your WhatsApp mobile app:
+   This will generate a QR code image that you need to scan with your WhatsApp mobile app:
 
    - Open WhatsApp on your phone
    - Tap Menu (three dots) > Linked Devices > Link a Device
-   - Scan the QR code displayed in the terminal
+   - Scan the QR code displayed by your image viewer
 
-4. Once authenticated, the setup will complete and you're ready to send messages.
+3. Once authenticated, the setup will complete and you're ready to send messages.
 
-## Sending Messages
+## Usage
 
-Use the `whatsapp-send` tool with `-to` and `-msg` flags:
+### Checking if a number is on WhatsApp
 
 ```bash
-./whatsapp-send -to "+5511999999999" -msg "Hello from CLI"
+./whatsapp-check -phone "+1234567890"
 ```
 
-- The `-to` flag should contain the recipient's phone number in international format.
-- The `-msg` flag contains the message you want to send.
+### Sending Messages
+
+```bash
+./whatsapp-send -to "+1234567890" -msg "Hello from CLI"
+```
+
+Additional options:
+
+- `-debug` - Enable verbose debug output
+- `-wait N` - Wait N seconds for message confirmation (default: 5)
+
+Example:
+
+```bash
+./whatsapp-send -to "+1234567890" -msg "Hello with debug" -debug -wait 10
+```
 
 ## Notes
 
 - The WhatsApp session is stored in `client.db` in the current directory.
 - You only need to run the setup process once (or if your session expires).
 - This tool works with WhatsApp's multi-device functionality.
+- If a message is not delivered, try using the `-debug` flag for more information.
