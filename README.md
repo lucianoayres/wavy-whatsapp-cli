@@ -49,6 +49,9 @@ whatsmeow-go/
 
    This will generate a QR code image that you need to scan with your WhatsApp mobile app:
 
+   - A 512x512 pixel QR code image named `whatsapp_qr_code.png` is generated in the root directory
+   - The QR code image is automatically opened in your default image viewer
+   - The QR code file is automatically deleted after successful authentication or when you exit the program
    - Open WhatsApp on your phone
    - Tap Menu (three dots) > Linked Devices > Link a Device
    - Scan the QR code displayed by your image viewer
@@ -100,7 +103,8 @@ Example:
 
 ## Notes
 
-- The WhatsApp session is stored in `client.db` in the current directory.
+- The WhatsApp session is stored in `client.db` in the root directory.
 - You only need to run the setup process once (or if your session expires).
 - This tool works with WhatsApp's multi-device functionality.
 - If a message is not delivered, try using the `-debug` flag for more information.
+- The program also exports your WhatsApp contacts to a file named `whatsapp_contacts_TIMESTAMP.txt` in the root directory after successful authentication.
