@@ -107,4 +107,3 @@ Example:
 - You only need to run the setup process once (or if your session expires).
 - This tool works with WhatsApp's multi-device functionality.
 - If a message is not delivered, try using the `-debug` flag for more information.
-- The program also exports your WhatsApp contacts to a file named `whatsapp_contacts_TIMESTAMP.txt` in the root directory after successful authentication.
