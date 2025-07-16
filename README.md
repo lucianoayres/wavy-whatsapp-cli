@@ -1,6 +1,6 @@
-# WhatsApp CLI Tools
+# WhatsApp CLI Tool (wavy)
 
-A set of command-line tools for WhatsApp messaging using the [whatsmeow](https://github.com/tulir/whatsmeow) library.
+A command-line interface for WhatsApp messaging using the [whatsmeow](https://github.com/tulir/whatsmeow) library.
 
 ## Features
 
@@ -15,61 +15,77 @@ A set of command-line tools for WhatsApp messaging using the [whatsmeow](https:/
 ```
 whatsmeow-go/
 ├── cmd/
-│   ├── check/     # WhatsApp number verification tool
-│   ├── groups/    # WhatsApp groups listing tool
-│   ├── send/      # Message sending tool
-│   └── setup/     # Authentication setup tool
-├── build.sh       # Build script for all tools
-├── .gitignore     # Git ignore file
-├── go.mod         # Go module file
-├── go.sum         # Go module checksum
-└── README.md      # This file
+│   └── wavy/       # Consolidated WhatsApp CLI tool
+├── bin/            # Build output directory
+├── magefile.go     # Mage build system
+├── go.mod          # Go module file
+├── go.sum          # Go module checksum
+└── README.md       # This file
 ```
 
-## Setup
+## Installation
 
-1. **Build the tools**:
+### Using Mage
 
-   ```bash
-   # Using the build script
-   ./build.sh
+This project uses [Mage](https://magefile.org/) for its build system.
 
-   # Or build manually
-   go build -o whatsapp-setup ./cmd/setup
-   go build -o whatsapp-send ./cmd/send
-   go build -o whatsapp-check ./cmd/check
-   go build -o whatsapp-groups ./cmd/groups
-   ```
-
-2. **Run the setup to authenticate**:
+1. **Install Mage** (if not already installed):
 
    ```bash
-   ./whatsapp-setup
+   go install github.com/magefile/mage@latest
    ```
 
-   This will generate a QR code image that you need to scan with your WhatsApp mobile app:
+2. **Build the tool**:
 
-   - A 512x512 pixel QR code image named `whatsapp_qr_code.png` is generated in the root directory
-   - The QR code image is automatically opened in your default image viewer
-   - The QR code file is automatically deleted after successful authentication or when you exit the program
-   - Open WhatsApp on your phone
-   - Tap Menu (three dots) > Linked Devices > Link a Device
-   - Scan the QR code displayed by your image viewer
+   ```bash
+   mage build
+   ```
 
-3. Once authenticated, the setup will complete and you're ready to send messages.
+   This will create `bin/wavy` executable.
+
+3. **Install the tool system-wide** (optional):
+
+   ```bash
+   mage install
+   ```
+
+   This will:
+
+   - Copy the binary to `/usr/local/bin/wavy`
+   - Create the required config directories at `~/.config/wavy/` and `~/.local/share/wavy/`
 
 ## Usage
+
+### Setting up WhatsApp connection
+
+```bash
+wavy setup
+```
+
+This will:
+
+- Generate a QR code image that you need to scan with your WhatsApp mobile app
+- The QR code image is automatically opened in your default image viewer
+- Open WhatsApp on your phone
+- Tap Menu (three dots) > Linked Devices > Link a Device
+- Scan the QR code displayed by your image viewer
 
 ### Checking if a number is on WhatsApp
 
 ```bash
-./whatsapp-check -phone "+1234567890"
+wavy check +1234567890
+```
+
+Or using flags:
+
+```bash
+wavy check --phone +1234567890
 ```
 
 ### Listing your WhatsApp groups
 
 ```bash
-./whatsapp-groups
+wavy groups
 ```
 
 This will show all groups you're a member of, including their group IDs which you need for sending messages to groups.
@@ -79,31 +95,46 @@ This will show all groups you're a member of, including their group IDs which yo
 #### To a contact:
 
 ```bash
-./whatsapp-send -to "+1234567890" -msg "Hello from CLI"
+wavy send +1234567890 "Hello from CLI"
+```
+
+Or using flags:
+
+```bash
+wavy send --to +1234567890 --msg "Hello from CLI"
 ```
 
 #### To a group:
 
 ```bash
-./whatsapp-send -to "123456789@g.us" -msg "Hello group from CLI"
+wavy send 123456789@g.us "Hello group from CLI"
 ```
 
-You must use the exact group ID from the `whatsapp-groups` command.
+You must use the exact group ID from the `wavy groups` command.
 
 #### Additional options:
 
-- `-debug` - Enable verbose debug output
-- `-wait N` - Wait N seconds for message confirmation (default: 5)
+- `--debug` - Enable verbose debug output
+- `--wait N` - Wait N seconds for message confirmation (default: 5)
 
 Example:
 
 ```bash
-./whatsapp-send -to "+1234567890" -msg "Hello with debug" -debug -wait 10
+wavy send --to +1234567890 --msg "Hello with debug" --debug --wait 10
 ```
 
-## Notes
+## Data Storage
 
-- The WhatsApp session is stored in `client.db` in the root directory.
-- You only need to run the setup process once (or if your session expires).
-- This tool works with WhatsApp's multi-device functionality.
-- If a message is not delivered, try using the `-debug` flag for more information.
+All wavy data is stored according to the XDG Base Directory Specification:
+
+- Configuration: `~/.config/wavy/`
+- Data (including WhatsApp session): `~/.local/share/wavy/`
+
+## Maintenance
+
+Additional Mage commands available:
+
+- `mage clean` - Remove build artifacts
+- `mage uninstall` - Completely remove wavy from your system
+- `mage test` - Run tests
+- `mage check` - Run linters and static analysis
