@@ -25,6 +25,22 @@ var setupCmd = &cobra.Command{
 }
 
 func runSetup() {
+	// Get the client DB path and delete it if it exists
+	dbPath, err := common.GetDBPath()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error getting database path: %v\n", err)
+		os.Exit(1)
+	}
+	
+	// Remove the existing database file if it exists
+	if _, err := os.Stat(dbPath); err == nil {
+		fmt.Println("Removing existing WhatsApp client database...")
+		if err := os.Remove(dbPath); err != nil {
+			fmt.Fprintf(os.Stderr, "Error removing existing database: %v\n", err)
+			os.Exit(1)
+		}
+	}
+
 	// Create client
 	client, needsSetup, err := common.CreateWAClient(true)
 	if err != nil {
@@ -45,9 +61,9 @@ func runSetup() {
 	// Clean up existing QR code
 	os.Remove(qrPath)
 
-	// If already set up, show notice but continue anyway
+	// After removing the database, needsSetup should always be true, but check anyway
 	if !needsSetup {
-		fmt.Println("Warning: WhatsApp is already set up, but you can scan QR again to re-authenticate.")
+		fmt.Println("Warning: WhatsApp still appears to be set up despite removing the database.")
 	}
 
 	// Handle QR code
@@ -79,7 +95,7 @@ func runSetup() {
 			os.Remove(qrPath)
 			
 			// Generate new QR code image file
-			err := qrcode.WriteFile(evt.Code, qrcode.Medium, 256, qrPath)
+			err := qrcode.WriteFile(evt.Code, qrcode.Medium, 512, qrPath)
 			if err != nil {
 				fmt.Printf("Failed to generate QR code image: %v\n", err)
 				fmt.Printf("QR Code data (use an online QR generator): %s\n", evt.Code)
