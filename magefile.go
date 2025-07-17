@@ -159,13 +159,21 @@ func Clean() error {
 // Test runs tests
 func Test() error {
 	fmt.Println("Running tests...")
-	return sh.Run("go", "test", "./...")
+	// Use exec.Command instead of sh.Run to connect stdout/stderr
+	cmd := exec.Command("go", "test", "./...")
+	cmd.Stdout = os.Stdout
+	cmd.Stderr = os.Stderr
+	return cmd.Run()
 }
 
 // TestVerbose runs tests with verbose output
 func TestVerbose() error {
 	fmt.Println("Running tests with verbose output...")
-	return sh.Run("go", "test", "-v", "./...")
+	// Use exec.Command instead of sh.Run to connect stdout/stderr
+	cmd := exec.Command("go", "test", "-v", "./...")
+	cmd.Stdout = os.Stdout
+	cmd.Stderr = os.Stderr
+	return cmd.Run()
 }
 
 // TestCoverage runs tests with coverage reporting
@@ -178,12 +186,18 @@ func TestCoverage() error {
 	}
 	
 	// Run tests with coverage
-	if err := sh.Run("go", "test", "-coverprofile=coverage/coverage.out", "./..."); err != nil {
+	testCmd := exec.Command("go", "test", "-coverprofile=coverage/coverage.out", "./...")
+	testCmd.Stdout = os.Stdout
+	testCmd.Stderr = os.Stderr
+	if err := testCmd.Run(); err != nil {
 		return err
 	}
 	
 	// Generate HTML coverage report
-	if err := sh.Run("go", "tool", "cover", "-html=coverage/coverage.out", "-o", "coverage/coverage.html"); err != nil {
+	coverCmd := exec.Command("go", "tool", "cover", "-html=coverage/coverage.out", "-o", "coverage/coverage.html")
+	coverCmd.Stdout = os.Stdout
+	coverCmd.Stderr = os.Stderr
+	if err := coverCmd.Run(); err != nil {
 		return err
 	}
 	
