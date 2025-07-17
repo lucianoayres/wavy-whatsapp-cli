@@ -13,9 +13,6 @@
 /go.work
 /go.work.sum
 
-# Images
-images/
-
 # WhatsApp-specific
 client.db
 client.db-journal
@@ -24,6 +21,10 @@ client.db-journal
 /bin/
 /dist/
 /build/
+
+
+# Images directory
+/images/
 
 # IDE specific files
 .idea/
