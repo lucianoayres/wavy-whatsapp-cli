@@ -4,7 +4,7 @@
 
 Wavy is a lightweight command‑line interface for WhatsApp messaging powered by the [whatsmeow](https://github.com/tulir/whatsmeow) library. It lets you authenticate with a QR code, send messages to individuals or groups, verify phone numbers, and browse your group list, all from your terminal.
 
-[Key features](#key-features) | [Project Structure](#project-structure) | [Installation](#installation) | [Usage](#usage) | [Data Storage](#data-storage) | [Viewing WhatsApp Contact Data](#viewing-whatsapp-contact-data) | [Maintenance](#maintenance) | [Testing](#testing) | [License](#license)
+[Key features](#key-features) | [Project Structure](#project-structure) | [Installation](#installation) | [Usage](#usage) | [Data Storage](#data-storage) | [Viewing WhatsApp Contact Data](#viewing-whatsapp-contact-data) | [Maintenance](#maintenance) | [Testing](#testing) | [Git Hooks](#git-hooks) | [License](#license)
 
 ## Key features
 
@@ -247,6 +247,44 @@ mage testCoverage
 ```
 
 This creates a coverage report at `coverage/coverage.html` that you can open in a browser.
+
+Got it. Here's the updated **Git Hooks** section for your README, referencing the config file without inlining it:
+
+---
+
+## Git Hooks
+
+This project uses [Lefthook](https://github.com/evilmartians/lefthook) to enforce code quality checks before commits and pushes.
+
+### Setup
+
+1. Install Lefthook:
+
+   ```bash
+   go install github.com/evilmartians/lefthook@latest
+   ```
+
+2. Install the Git hooks:
+
+   ```bash
+   lefthook install
+   ```
+
+### What it does
+
+- Runs `go vet`, `gofmt`, and `go test` on commit
+- Runs `go test` on push
+
+The full configuration is available in the [lefthook.yml](./lefthook.yml) file at the project root.
+
+You can also run the hooks manually:
+
+```bash
+lefthook run pre-commit
+lefthook run pre-push
+```
+
+---
 
 ### Running All Tasks
 

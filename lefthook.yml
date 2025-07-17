@@ -1,0 +1,16 @@
+pre-commit:
+  parallel: true
+  commands:
+    go-vet:
+      glob: "*.go"
+      run: go vet ./...
+    go-fmt:
+      glob: "*.go"
+      run: test -z "$(gofmt -l .)" || (echo "❌ gofmt found issues" && gofmt -d . && exit 1)
+    go-test:
+      run: go test ./...
+
+pre-push:
+  commands:
+    go-test:
+      run: go test ./...
