@@ -1,6 +1,6 @@
 # 🌊 **Wavy** 💬
 
-![Wavy Banner](images/wavy_banner_optimized.png)
+![Wavy Banner](https://github.com/user-attachments/assets/126aee52-606b-4e11-81ff-fbc10d74ab87)
 
 ## Send WhatsApp messages from your command line, entirely free
 

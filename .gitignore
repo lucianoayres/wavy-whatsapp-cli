@@ -13,6 +13,9 @@
 /go.work
 /go.work.sum
 
+# Images
+images/
+
 # WhatsApp-specific
 client.db
 client.db-journal
