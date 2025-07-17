@@ -1,4 +1,4 @@
-# 🌊💬 **Wavy**
+# 🌊 **Wavy** 💬
 
 ## Send WhatsApp messages from your command line, entirely free
 
