@@ -100,9 +100,7 @@ func runSend() {
 		// Handle as individual contact
 		phoneNumber := to
 		phoneNumber = strings.TrimSpace(phoneNumber)
-		if strings.HasPrefix(phoneNumber, "+") {
-			phoneNumber = phoneNumber[1:] // Remove the '+' prefix
-		}
+		phoneNumber = strings.TrimPrefix(phoneNumber, "+")
 
 		// First verify the number is on WhatsApp
 		exists, err := client.IsOnWhatsApp([]string{phoneNumber})

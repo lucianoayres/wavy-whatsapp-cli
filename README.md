@@ -55,7 +55,7 @@ This project uses [Mage](https://magefile.org/) for its build system.
 3. **Install the tool system-wide** (optional):
 
    ```bash
-   sudo mage install
+   mage install
    ```
 
    This will:
