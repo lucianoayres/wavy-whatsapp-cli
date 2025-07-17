@@ -68,16 +68,28 @@ func Install() error {
 		return fmt.Errorf("failed to create data directory: %w", err)
 	}
 
-	// Copy binary to install directory
+	// Copy binary to install directory using sudo
 	srcPath := filepath.Join(binDir, binaryName)
 	destPath := filepath.Join(installDir, binaryName)
 
-	if err := sh.Copy(destPath, srcPath); err != nil {
+	fmt.Println("Copying binary to system directory. You may be prompted for your password...")
+	
+	// Use sudo to copy the binary
+	cmd := exec.Command("sudo", "cp", srcPath, destPath)
+	cmd.Stdout = os.Stdout
+	cmd.Stderr = os.Stderr
+	// Connect to terminal for password prompt
+	cmd.Stdin = os.Stdin
+	
+	if err := cmd.Run(); err != nil {
 		return fmt.Errorf("failed to copy binary to %s: %w", destPath, err)
 	}
 
-	// Set executable permissions
-	if err := os.Chmod(destPath, 0755); err != nil {
+	// Set executable permissions using sudo
+	chmodCmd := exec.Command("sudo", "chmod", "755", destPath)
+	chmodCmd.Stdout = os.Stdout
+	chmodCmd.Stderr = os.Stderr
+	if err := chmodCmd.Run(); err != nil {
 		return fmt.Errorf("failed to set permissions: %w", err)
 	}
 
@@ -91,12 +103,28 @@ func Install() error {
 func Uninstall() error {
 	fmt.Println("Uninstalling wavy...")
 
-	// Remove binary
+	// Remove binary using sudo
 	binaryPath := filepath.Join(installDir, binaryName)
-	if err := os.Remove(binaryPath); err != nil && !os.IsNotExist(err) {
-		return fmt.Errorf("failed to remove binary %s: %w", binaryPath, err)
+	fmt.Println("Removing binary from system directory. You may be prompted for your password...")
+	
+	// Check if binary exists before trying to remove it
+	if _, err := os.Stat(binaryPath); err == nil {
+		// Binary exists, use sudo to remove it
+		rmCmd := exec.Command("sudo", "rm", binaryPath)
+		rmCmd.Stdout = os.Stdout
+		rmCmd.Stderr = os.Stderr
+		// Connect to terminal for password prompt
+		rmCmd.Stdin = os.Stdin
+		
+		if err := rmCmd.Run(); err != nil {
+			return fmt.Errorf("failed to remove binary %s: %w", binaryPath, err)
+		}
+		fmt.Printf("Removed binary: %s\n", binaryPath)
+	} else if os.IsNotExist(err) {
+		fmt.Printf("Binary not found at %s, skipping removal\n", binaryPath)
+	} else {
+		return fmt.Errorf("failed to check if binary exists: %w", err)
 	}
-	fmt.Printf("Removed binary: %s\n", binaryPath)
 
 	// Remove config directory
 	configDirExpanded, err := homePath(configDir)

@@ -46,7 +46,7 @@ This project uses [Mage](https://magefile.org/) for its build system.
 3. **Install the tool system-wide** (optional):
 
    ```bash
-   mage install
+   sudo mage install
    ```
 
    This will:
@@ -129,6 +129,75 @@ All wavy data is stored according to the XDG Base Directory Specification:
 
 - Configuration: `~/.config/wavy/`
 - Data (including WhatsApp session): `~/.local/share/wavy/`
+
+## Viewing WhatsApp Contact Data
+
+The WhatsApp session data is stored in a SQLite database at `~/.local/share/wavy/client.db`. You can inspect this database to view your contacts and other information:
+
+### Installing SQLite CLI
+
+```bash
+# For Debian/Ubuntu
+sudo apt install sqlite3
+
+# For Fedora
+sudo dnf install sqlite
+
+# For macOS
+brew install sqlite
+```
+
+### Viewing Contact Data
+
+1. Open the database:
+
+   ```bash
+   sqlite3 ~/.local/share/wavy/client.db
+   ```
+
+2. View available tables:
+
+   ```sql
+   .tables
+   ```
+
+3. View your contacts:
+
+   ```sql
+   SELECT * FROM whatsmeow_contacts;
+   ```
+
+4. View specific contact information:
+
+   ```sql
+   SELECT jid, name, first_name, push_name FROM whatsmeow_contacts;
+   ```
+
+5. Count your contacts:
+
+   ```sql
+   SELECT COUNT(*) FROM whatsmeow_contacts;
+   ```
+
+6. Find a specific contact by name:
+
+   ```sql
+   SELECT * FROM whatsmeow_contacts WHERE name LIKE '%John%';
+   ```
+
+7. Exit SQLite:
+
+   ```
+   .exit
+   ```
+
+### Using SQLite in Script Mode
+
+You can also query the database directly from the command line:
+
+```bash
+sqlite3 ~/.local/share/wavy/client.db "SELECT jid, name FROM whatsmeow_contacts"
+```
 
 ## Maintenance
 
