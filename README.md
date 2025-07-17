@@ -1,14 +1,23 @@
-# WhatsApp CLI Tool (wavy)
+# 🌊💬 **Wavy**
 
-A command-line interface for WhatsApp messaging using the [whatsmeow](https://github.com/tulir/whatsmeow) library.
+## Send WhatsApp messages from your command line, entirely free
 
-## Features
+Wavy is a lightweight command‑line interface for WhatsApp messaging powered by the [whatsmeow](https://github.com/tulir/whatsmeow) library. It lets you authenticate with a QR code, send messages to individuals or groups, verify phone numbers, and browse your group list, all from your terminal.
 
-- Set up a WhatsApp session with QR code authentication
-- Send messages to WhatsApp contacts via command-line
-- Send messages to WhatsApp groups
-- Check if phone numbers are registered on WhatsApp
-- List all your WhatsApp groups
+[Key features](#key-features) | [Project Structure](#project-structure) | [Installation](#installation) | [Usage](#usage) | [Data Storage](#data-storage) | [Viewing WhatsApp Contact Data](#viewing-whatsapp-contact-data) | [Maintenance](#maintenance) | [License](#license)
+
+## Key features
+
+- 🔒 **QR code authentication**
+  Pair your account by scanning a QR code that opens in your image viewer
+- 💬 **Send messages to contacts**
+  Deliver plain text or formatted messages to any registered WhatsApp number
+- 👥 **Send messages to groups**
+  Post updates in your WhatsApp groups by using their group IDs
+- ✅ **Verify registration status**
+  Check if a phone number is registered on WhatsApp before sending a message
+- 📋 **List your groups**
+  Retrieve all your group chats and their IDs to target them easily
 
 ## Project Structure
 
@@ -56,19 +65,20 @@ This project uses [Mage](https://magefile.org/) for its build system.
 
 ## Usage
 
-### Setting up WhatsApp connection
+**WhatsApp connection setup**
 
-```bash
-wavy setup
-```
+1. Open your terminal and run:
 
-This will:
+   ```bash
+   wavy setup
+   ```
 
-- Generate a QR code image that you need to scan with your WhatsApp mobile app
-- The QR code image is automatically opened in your default image viewer
-- Open WhatsApp on your phone
-- Tap Menu (three dots) > Linked Devices > Link a Device
-- Scan the QR code displayed by your image viewer
+2. A QR code will be generated and displayed in your image viewer.
+3. On your phone, open WhatsApp and navigate to
+   **Settings > Linked Devices > Link a Device**
+4. Scan the QR code on your computer screen.
+5. Once pairing is successful, WhatsApp will confirm the new device is connected. You’re now authenticated and ready to send messages.
+6. In your terminal, press **Ctrl+C** to exit the setup script.
 
 ### Checking if a number is on WhatsApp
 
@@ -207,3 +217,7 @@ Additional Mage commands available:
 - `mage uninstall` - Completely remove wavy from your system
 - `mage test` - Run tests
 - `mage check` - Run linters and static analysis
+
+## License
+
+Licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
