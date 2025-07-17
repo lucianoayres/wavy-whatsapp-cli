@@ -50,3 +50,6 @@ Thumbs.db
 
 # Project specific binaries that should be built locally
 /whatsapp-* 
+
+# Coverage report
+coverage/

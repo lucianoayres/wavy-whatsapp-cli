@@ -4,7 +4,7 @@
 
 Wavy is a lightweight command‑line interface for WhatsApp messaging powered by the [whatsmeow](https://github.com/tulir/whatsmeow) library. It lets you authenticate with a QR code, send messages to individuals or groups, verify phone numbers, and browse your group list, all from your terminal.
 
-[Key features](#key-features) | [Project Structure](#project-structure) | [Installation](#installation) | [Usage](#usage) | [Data Storage](#data-storage) | [Viewing WhatsApp Contact Data](#viewing-whatsapp-contact-data) | [Maintenance](#maintenance) | [License](#license)
+[Key features](#key-features) | [Project Structure](#project-structure) | [Installation](#installation) | [Usage](#usage) | [Data Storage](#data-storage) | [Viewing WhatsApp Contact Data](#viewing-whatsapp-contact-data) | [Maintenance](#maintenance) | [Testing](#testing) | [License](#license)
 
 ## Key features
 
@@ -77,7 +77,7 @@ This project uses [Mage](https://magefile.org/) for its build system.
 3. On your phone, open WhatsApp and navigate to
    **Settings > Linked Devices > Link a Device**
 4. Scan the QR code on your computer screen.
-5. Once pairing is successful, WhatsApp will confirm the new device is connected. You’re now authenticated and ready to send messages.
+5. Once pairing is successful, WhatsApp will confirm the new device is connected. You're now authenticated and ready to send messages.
 6. In your terminal, press **Ctrl+C** to exit the setup script.
 
 ### Checking if a number is on WhatsApp
@@ -161,7 +161,7 @@ brew install sqlite
 
 1. Open the database:
 
-   ```bash
+   ```sql
    sqlite3 ~/.local/share/wavy/client.db
    ```
 
@@ -217,6 +217,44 @@ Additional Mage commands available:
 - `mage uninstall` - Completely remove wavy from your system
 - `mage test` - Run tests
 - `mage check` - Run linters and static analysis
+
+## Testing
+
+This project includes unit tests to verify functionality. You can run tests using Mage:
+
+### Running Basic Tests
+
+Run all tests:
+
+```bash
+mage test
+```
+
+### Running Tests with Verbose Output
+
+For more detailed test results:
+
+```bash
+mage testVerbose
+```
+
+### Generate Test Coverage Report
+
+Generate coverage report (HTML format):
+
+```bash
+mage testCoverage
+```
+
+This creates a coverage report at `coverage/coverage.html` that you can open in a browser.
+
+### Running All Tasks
+
+Run formatting, static analysis, tests and build in one command:
+
+```bash
+mage all
+```
 
 ## License
 

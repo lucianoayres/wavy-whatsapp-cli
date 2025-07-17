@@ -162,6 +162,35 @@ func Test() error {
 	return sh.Run("go", "test", "./...")
 }
 
+// TestVerbose runs tests with verbose output
+func TestVerbose() error {
+	fmt.Println("Running tests with verbose output...")
+	return sh.Run("go", "test", "-v", "./...")
+}
+
+// TestCoverage runs tests with coverage reporting
+func TestCoverage() error {
+	fmt.Println("Running tests with coverage reporting...")
+	
+	// Create coverage output directory if it doesn't exist
+	if err := os.MkdirAll("coverage", 0755); err != nil {
+		return fmt.Errorf("failed to create coverage directory: %w", err)
+	}
+	
+	// Run tests with coverage
+	if err := sh.Run("go", "test", "-coverprofile=coverage/coverage.out", "./..."); err != nil {
+		return err
+	}
+	
+	// Generate HTML coverage report
+	if err := sh.Run("go", "tool", "cover", "-html=coverage/coverage.out", "-o", "coverage/coverage.html"); err != nil {
+		return err
+	}
+	
+	fmt.Println("Coverage report generated at coverage/coverage.html")
+	return nil
+}
+
 // Check runs linters and static analysis
 func Check() error {
 	fmt.Println("Running linters and static analysis...")
@@ -172,6 +201,29 @@ func Check() error {
 		return err
 	}
 	return nil
+}
+
+// All runs all tasks (format, check, test, build)
+func All() error {
+	fmt.Println("Running all tasks...")
+	
+	// Run formatter
+	if err := sh.Run("go", "fmt", "./..."); err != nil {
+		return err
+	}
+	
+	// Run static analysis
+	if err := sh.Run("go", "vet", "./..."); err != nil {
+		return err
+	}
+	
+	// Run tests
+	if err := Test(); err != nil {
+		return err
+	}
+	
+	// Build
+	return Build()
 }
 
 // Helper function to expand home directory (~)
