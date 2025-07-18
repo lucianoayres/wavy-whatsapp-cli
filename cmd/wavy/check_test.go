@@ -22,7 +22,7 @@ func TestCheckCmdWithFlag(t *testing.T) {
 			t.Errorf("Expected phoneNumber to be 1234567890, got %s", phoneNumber)
 		}
 	}
-	
+
 	// Run command with flag
 	cmd.SetArgs([]string{"--phone", "1234567890"})
 	cmd.Execute()
@@ -38,13 +38,13 @@ func TestCheckCmdWithPositionalArg(t *testing.T) {
 	// Setup
 	phoneNumber = ""
 	args := []string{"1234567890"}
-	
+
 	// Check if positional argument is handled correctly
 	if len(args) > 0 && phoneNumber == "" {
 		phoneNumber = args[0]
 	}
-	
+
 	if phoneNumber != "1234567890" {
 		t.Errorf("Expected phoneNumber to be 1234567890, got %s", phoneNumber)
 	}
-} 
+}

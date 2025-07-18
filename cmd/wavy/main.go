@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"os"
 
+	"whatsmeow-go/cmd/wavy/common"
+
 	"github.com/spf13/cobra"
 )
 
@@ -13,6 +15,15 @@ var rootCmd = &cobra.Command{
 	Long:  `A command line interface to interact with WhatsApp.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		cmd.Help()
+	},
+}
+
+var versionCmd = &cobra.Command{
+	Use:   "version",
+	Short: "Print the version number",
+	Long:  `Display the version of Wavy WhatsApp CLI`,
+	Run: func(cmd *cobra.Command, args []string) {
+		fmt.Printf("Wavy WhatsApp CLI v%s\n", common.GetVersion())
 	},
 }
 
@@ -29,4 +40,5 @@ func init() {
 	rootCmd.AddCommand(sendCmd)
 	rootCmd.AddCommand(checkCmd)
 	rootCmd.AddCommand(groupsCmd)
-} 
+	rootCmd.AddCommand(versionCmd)
+}

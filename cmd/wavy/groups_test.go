@@ -44,4 +44,4 @@ func TestGroupsCommand(t *testing.T) {
 	if groupsCmd.Run == nil {
 		t.Error("Expected groupsCmd.Run to be set, but it wasn't")
 	}
-} 
+}

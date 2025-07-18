@@ -73,14 +73,14 @@ func Install() error {
 	destPath := filepath.Join(installDir, binaryName)
 
 	fmt.Println("Copying binary to system directory. You may be prompted for your password...")
-	
+
 	// Use sudo to copy the binary
 	cmd := exec.Command("sudo", "cp", srcPath, destPath)
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
 	// Connect to terminal for password prompt
 	cmd.Stdin = os.Stdin
-	
+
 	if err := cmd.Run(); err != nil {
 		return fmt.Errorf("failed to copy binary to %s: %w", destPath, err)
 	}
@@ -106,7 +106,7 @@ func Uninstall() error {
 	// Remove binary using sudo
 	binaryPath := filepath.Join(installDir, binaryName)
 	fmt.Println("Removing binary from system directory. You may be prompted for your password...")
-	
+
 	// Check if binary exists before trying to remove it
 	if _, err := os.Stat(binaryPath); err == nil {
 		// Binary exists, use sudo to remove it
@@ -115,7 +115,7 @@ func Uninstall() error {
 		rmCmd.Stderr = os.Stderr
 		// Connect to terminal for password prompt
 		rmCmd.Stdin = os.Stdin
-		
+
 		if err := rmCmd.Run(); err != nil {
 			return fmt.Errorf("failed to remove binary %s: %w", binaryPath, err)
 		}
@@ -179,12 +179,12 @@ func TestVerbose() error {
 // TestCoverage runs tests with coverage reporting
 func TestCoverage() error {
 	fmt.Println("Running tests with coverage reporting...")
-	
+
 	// Create coverage output directory if it doesn't exist
 	if err := os.MkdirAll("coverage", 0755); err != nil {
 		return fmt.Errorf("failed to create coverage directory: %w", err)
 	}
-	
+
 	// Run tests with coverage
 	testCmd := exec.Command("go", "test", "-coverprofile=coverage/coverage.out", "./...")
 	testCmd.Stdout = os.Stdout
@@ -192,7 +192,7 @@ func TestCoverage() error {
 	if err := testCmd.Run(); err != nil {
 		return err
 	}
-	
+
 	// Generate HTML coverage report
 	coverCmd := exec.Command("go", "tool", "cover", "-html=coverage/coverage.out", "-o", "coverage/coverage.html")
 	coverCmd.Stdout = os.Stdout
@@ -200,7 +200,7 @@ func TestCoverage() error {
 	if err := coverCmd.Run(); err != nil {
 		return err
 	}
-	
+
 	fmt.Println("Coverage report generated at coverage/coverage.html")
 	return nil
 }
@@ -220,22 +220,22 @@ func Check() error {
 // All runs all tasks (format, check, test, build)
 func All() error {
 	fmt.Println("Running all tasks...")
-	
+
 	// Run formatter
 	if err := sh.Run("go", "fmt", "./..."); err != nil {
 		return err
 	}
-	
+
 	// Run static analysis
 	if err := sh.Run("go", "vet", "./..."); err != nil {
 		return err
 	}
-	
+
 	// Run tests
 	if err := Test(); err != nil {
 		return err
 	}
-	
+
 	// Build
 	return Build()
 }
@@ -250,4 +250,4 @@ func homePath(path string) (string, error) {
 		return filepath.Join(home, path[2:]), nil
 	}
 	return path, nil
-} 
+}

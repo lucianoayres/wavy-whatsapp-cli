@@ -70,4 +70,4 @@ func runGroups() {
 	}
 
 	client.Disconnect()
-} 
+}

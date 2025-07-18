@@ -6,7 +6,7 @@
 
 Wavy is a lightweight command‑line interface for WhatsApp messaging powered by the [whatsmeow](https://github.com/tulir/whatsmeow) library. It lets you authenticate with a QR code, send messages to individuals or groups, verify phone numbers, and browse your group list, all from your terminal.
 
-[Key features](#key-features) · [Installation](#installation) · [Usage](#usage) · [Data Storage](#data-storage) · [Viewing WhatsApp Contact Data](#viewing-whatsapp-contact-data) · [Maintenance](#maintenance) · [Testing](#testing) · [Git Hooks](#git-hooks) · [License](#license)
+[Key features](#key-features) · [Installation](#installation) · [Usage](#usage) · [Data Storage](#data-storage) · [Viewing WhatsApp Contact Data](#viewing-whatsapp-contact-data) · [Maintenance](#maintenance) · [Testing](#testing) · [Git Hooks](#git-hooks) · [Releases](#releases) · [License](#license)
 
 ## Key features
 
@@ -237,10 +237,6 @@ mage testCoverage
 
 This creates a coverage report at `coverage/coverage.html` that you can open in a browser.
 
-Got it. Here's the updated **Git Hooks** section for your README, referencing the config file without inlining it:
-
----
-
 ## Git Hooks
 
 This project uses [Lefthook](https://github.com/evilmartians/lefthook) to enforce code quality checks before commits and pushes.
@@ -273,8 +269,6 @@ lefthook run pre-commit
 lefthook run pre-push
 ```
 
----
-
 ### Running All Tasks
 
 Run formatting, static analysis, tests and build in one command:
@@ -282,6 +276,22 @@ Run formatting, static analysis, tests and build in one command:
 ```bash
 mage all
 ```
+
+## Releases
+
+Wavy is available as pre-compiled binaries for various operating systems and architectures. You can download the latest version from the [Releases page](https://github.com/lucianoayres/wavy-whatsapp-cli/releases).
+
+### Version Command
+
+You can check which version of Wavy you're running with:
+
+```bash
+wavy version
+```
+
+### Release Process
+
+If you're a contributor interested in the release process for this project, please see the [Release Process documentation](docs/RELEASE_PROCESS.md) for details on how we version and build releases.
 
 ## License
 

@@ -16,10 +16,10 @@ import (
 )
 
 var (
-	to     string
-	msg    string
-	debug  bool
-	wait   int
+	to    string
+	msg   string
+	debug bool
+	wait  int
 )
 
 var sendCmd = &cobra.Command{
@@ -145,4 +145,4 @@ func runSend() {
 
 	// Disconnect client after sending
 	client.Disconnect()
-} 
+}

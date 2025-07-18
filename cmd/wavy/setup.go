@@ -31,7 +31,7 @@ func runSetup() {
 		fmt.Fprintf(os.Stderr, "Error getting database path: %v\n", err)
 		os.Exit(1)
 	}
-	
+
 	// Remove the existing database file if it exists
 	if _, err := os.Stat(dbPath); err == nil {
 		fmt.Println("Removing existing WhatsApp client database...")
@@ -54,7 +54,7 @@ func runSetup() {
 		fmt.Fprintf(os.Stderr, "Error getting data path: %v\n", err)
 		os.Exit(1)
 	}
-	
+
 	// Path to QR code file
 	qrPath := filepath.Join(dataPath, "whatsapp_qr_code.png")
 
@@ -90,10 +90,10 @@ func runSetup() {
 	for evt := range qrChan {
 		if evt.Event == "code" {
 			// Generate QR code image file
-			
+
 			// Remove existing file if it exists
 			os.Remove(qrPath)
-			
+
 			// Generate new QR code image file
 			err := qrcode.WriteFile(evt.Code, qrcode.Medium, 512, qrPath)
 			if err != nil {
@@ -101,7 +101,7 @@ func runSetup() {
 				fmt.Printf("QR Code data (use an online QR generator): %s\n", evt.Code)
 				continue
 			}
-			
+
 			// Open the QR code image with default image viewer
 			fmt.Println("Opening QR code image. Scan it with WhatsApp mobile app...")
 			err = openFile(qrPath)
@@ -121,7 +121,7 @@ func runSetup() {
 	fmt.Println("Setup complete! The connection is now authenticated.")
 	fmt.Println("You can now use wavy commands to interact with WhatsApp.")
 	fmt.Println("Press Ctrl+C to exit")
-	
+
 	// Block until Ctrl+C is pressed
 	select {}
 }
@@ -138,4 +138,4 @@ func openFile(path string) error {
 		cmd = exec.Command("xdg-open", path)
 	}
 	return cmd.Start()
-} 
+}

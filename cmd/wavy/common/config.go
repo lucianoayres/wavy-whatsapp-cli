@@ -121,9 +121,9 @@ func CreateWAClient(debug bool) (*whatsmeow.Client, bool, error) {
 	}
 
 	client := whatsmeow.NewClient(deviceStore, clientLog)
-	
+
 	// Check if setup is needed
 	needsSetup := client.Store.ID == nil
 
 	return client, needsSetup, nil
-} 
+}

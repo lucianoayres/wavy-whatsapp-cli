@@ -102,4 +102,4 @@ func runCheck() {
 
 	fmt.Println("\nDiagnostic complete.")
 	client.Disconnect()
-} 
+}

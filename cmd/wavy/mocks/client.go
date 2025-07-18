@@ -20,7 +20,7 @@ type MockClient struct {
 	}
 
 	// Mock behaviors
-	MockIsOnWhatsApp func([]string) ([]types.IsOnWhatsAppResponse, error)
+	MockIsOnWhatsApp    func([]string) ([]types.IsOnWhatsAppResponse, error)
 	MockGetJoinedGroups func() ([]types.GroupInfo, error)
 }
 
@@ -81,4 +81,4 @@ func NewMockClient() *MockClient {
 		Server: "s.whatsapp.net",
 	}
 	return m
-} 
+}
