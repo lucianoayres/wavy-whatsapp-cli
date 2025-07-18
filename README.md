@@ -23,7 +23,30 @@ Wavy is a lightweight command‑line interface for WhatsApp messaging powered by
 
 ## Installation
 
-### Using Mage
+### Download Pre-compiled Binaries (Recommended)
+
+The easiest way to install Wavy is to download a pre-compiled binary from the [GitHub Releases page](https://github.com/lucianoayres/wavy-whatsapp-cli/releases):
+
+1. Go to the [Releases page](https://github.com/lucianoayres/wavy-whatsapp-cli/releases)
+2. Download the appropriate binary for your operating system and architecture:
+   - Linux: `wavy-linux-amd64` or `wavy-linux-arm64`
+   - macOS: `wavy-darwin-amd64` or `wavy-darwin-arm64`
+   - Windows: `wavy-windows-amd64.exe`
+3. Make the downloaded file executable (Linux/macOS):
+   ```bash
+   chmod +x wavy-linux-amd64
+   # Or for macOS:
+   # chmod +x wavy-darwin-amd64
+   ```
+4. Move the binary to a directory in your PATH (optional, for easier access):
+   ```bash
+   # Linux/macOS:
+   sudo mv wavy-linux-amd64 /usr/local/bin/wavy
+   # For macOS with Apple Silicon:
+   # sudo mv wavy-darwin-arm64 /usr/local/bin/wavy
+   ```
+
+### Building from Source
 
 This project uses [Mage](https://magefile.org/) for its build system.
 
@@ -280,6 +303,12 @@ mage all
 ## Releases
 
 Wavy is available as pre-compiled binaries for various operating systems and architectures. You can download the latest version from the [Releases page](https://github.com/lucianoayres/wavy-whatsapp-cli/releases).
+
+The following platforms are supported:
+
+- **Linux**: amd64 and arm64 architectures
+- **macOS** (Darwin): amd64 (Intel) and arm64 (Apple Silicon) architectures
+- **Windows**: amd64 architecture
 
 ### Version Command
 
