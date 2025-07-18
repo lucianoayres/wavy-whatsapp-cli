@@ -6,7 +6,7 @@ pre-commit:
       run: go vet ./...
     go-fmt:
       glob: "*.go"
-      run: test -z "$(gofmt -l .)" || (echo "❌ gofmt found issues" && gofmt -d . && exit 1)
+      run: gofmt -w $(find . -name "*.go") && test -z "$(gofmt -l .)" || (echo "❌ gofmt found issues that could not be automatically fixed" && gofmt -d . && exit 1)
     go-test:
       run: go test ./...
 
