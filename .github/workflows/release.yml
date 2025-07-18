@@ -21,19 +21,19 @@ jobs:
             goarch: arm64
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
-
+      
       - name: Set up Go
-        uses: actions/setup-go@v4
+        uses: actions/setup-go@v5
         with:
           go-version: "1.24"
-
+      
       - name: Get version from tag
         id: get_version
         run: echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_ENV
-
+      
       - name: Build binary
         env:
           GOOS: ${{ matrix.goos }}
@@ -45,9 +45,9 @@ jobs:
             EXTENSION=".exe"
           fi
           go build -ldflags "-X whatsmeow-go/cmd/wavy/common.Version=$VERSION" -o "bin/wavy-${{ matrix.goos }}-${{ matrix.goarch }}${EXTENSION}" ./cmd/wavy
-
+      
       - name: Upload binary as artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: wavy-${{ matrix.goos }}-${{ matrix.goarch }}
           path: bin/wavy-${{ matrix.goos }}-${{ matrix.goarch }}*
@@ -59,16 +59,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Download all artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           path: ./artifacts
-
+      
       - name: Create Release
         id: create_release
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2
         with:
           name: Wavy WhatsApp CLI ${{ github.ref_name }}
           draft: false
