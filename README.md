@@ -6,7 +6,7 @@
 
 Wavy is a lightweight command‑line interface for WhatsApp messaging powered by the [whatsmeow](https://github.com/tulir/whatsmeow) library. It lets you authenticate with a QR code, send messages to individuals or groups, verify phone numbers, and browse your group list, all from your terminal.
 
-[Key features](#key-features) · [Installation](#installation) · [Usage](#usage) · [Data Storage](#data-storage) · [Viewing WhatsApp Contact Data](#viewing-whatsapp-contact-data) · [Maintenance](#maintenance) · [Testing](#testing) · [Git Hooks](#git-hooks) · [Releases](#releases) · [License](#license)
+[Key features](#key-features) · [Screenshot](#screenshot) · [Installation](#installation) · [Usage](#usage) · [Data Storage](#data-storage) · [Viewing WhatsApp Contact Data](#viewing-whatsapp-contact-data) · [Maintenance](#maintenance) · [Testing](#testing) · [Git Hooks](#git-hooks) · [Releases](#releases) · [License](#license)
 
 ## Key features
 
