@@ -21,6 +21,10 @@ Wavy is a lightweight command‑line interface for WhatsApp messaging powered by
 - 📋 **List your groups**
   Retrieve all your group chats and their IDs to target them easily
 
+## Screenshot
+
+![Wavy Screenshot](https://github.com/user-attachments/assets/037fb761-0111-46c4-98fa-c8f2e25eecbc)
+
 ## Installation
 
 ### Download Pre-compiled Binaries (Recommended)
@@ -117,19 +121,19 @@ This will show all groups you're a member of, including their group IDs which yo
 #### To a contact:
 
 ```bash
-wavy send +1234567890 "Hello from CLI"
+wavy send +1234567890 "Hello from Wavy CLI"
 ```
 
 Or using flags:
 
 ```bash
-wavy send --to +1234567890 --msg "Hello from CLI"
+wavy send --to +1234567890 --msg "Hello from Wavy CLI"
 ```
 
 #### To a group:
 
 ```bash
-wavy send 123456789@g.us "Hello group from CLI"
+wavy send 123456789@g.us "Hello group from Wavy CLI"
 ```
 
 You must use the exact group ID from the `wavy groups` command.
